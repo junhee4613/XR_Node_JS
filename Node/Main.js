@@ -8,5 +8,5 @@ http.createServer(function(request, response)
     response.end("Hello world")
 
 }).listen(8000);
-
+//컨트롤 + c는 서버 끊기,  연결 node + 해당 파일명 입력하면 서버 구축!
 console.log('server running at http://127.0.0.1:8000/');
