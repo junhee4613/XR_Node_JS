@@ -24,7 +24,7 @@ public class UnityToNode : MonoBehaviour
     {
         this.btnPostExample.onClick.AddListener(() =>
         {
-            var url = string.Format("{0}:{1}/{2}", host, port, idUri);       //URL 주소 생성        //여기 안에 {변수 순번이 들어감} Ex) 0번이 들어가면 host변수에 들어가 있는 데이터가 들어감
+            var url = string.Format("0:1/2", host, port, idUri);       //URL 주소 생성        //여기 안에 {변수 순번이 들어감} Ex) 0번이 들어가면 host변수에 들어가 있는 데이터가 들어감. 중괄호를 안쓰면 그냥 0:1/2로 찍힘
             Debug.Log(url);
 
             var req = new Protocols.Packets.req_data();                         //Req 프로토콜 데이터 입력
