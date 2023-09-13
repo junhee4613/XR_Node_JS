@@ -1,0 +1,57 @@
+const express = require('express');
+const app = express();
+
+let users = [
+    { id: 0, data: "UserData"}          //배열안에 오브젝트 => 배열 안에 요소는 오브젝트가 있다고 표현함
+];
+
+app.use(express.json());               //json을 사용하겠다.
+app.get('/', (req, res)=>{
+
+    let result = {
+        cmd : -1,
+        message : 'Hello world'
+    };
+    res.send(result);
+});
+
+app.get('/id', (req, res)=>{
+
+    let result = {
+        cmd : 100,
+        message : 'MyID'
+    };
+    res.send(result);
+});
+
+app.post('/userdata', (req, res)=>{
+    const{id, data} = req.body;             //Reqest Body에 Json 데티어가 들어오면 id, data에 연결
+    console.loig(id, data);
+    let result = {
+        cmd: -1,
+        message: ''
+    };
+
+    let user = users.find(x=> x.id == id);          //users 배열에서 x를 찾아서 리턴
+
+    if(user == undefined)                           //undefined 될 경우 신규 등록
+    {
+        users.push({id, data});                     //배열에 입력 Push
+        result.cmd = 1001;
+        result.massage = "유저 신규 등록";
+    }
+    else
+    {
+        console.log(id, user.data);
+        user.data = data;
+        result.cmd = 1002;
+        result.massage = '데이터 갱신';
+    }
+
+    console.log(users);
+    res.send(result);
+})
+
+app.listen(3030, () =>{
+    console.log('server is runnung at 3030 port');
+});
