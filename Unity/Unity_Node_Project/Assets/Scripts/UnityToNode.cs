@@ -37,12 +37,12 @@ public class UnityToNode : MonoBehaviour
             req.cmd = 1000;
             req.id = id;
             req.data = data;
-            var json = JsonConvert.SerializeObject(req);
+            var json = JsonConvert.SerializeObject(req);                        //json형식의 문자열로 직렬화
             Debug.Log(json);
 
             StartCoroutine(this.PostData(url, json, (raw) =>
             {
-                Protocols.Packets.common res = JsonConvert.DeserializeObject< Protocols.Packets.common>(raw);
+                Protocols.Packets.common res = JsonConvert.DeserializeObject< Protocols.Packets.common>(raw);   //역직렬화 시켜 json데이터를 c#코드로 변환
                 Debug.LogFormat("{0}, {1}", res.cmd, res.message);         
             }));
 
@@ -132,7 +132,8 @@ public class UnityToNode : MonoBehaviour
     private IEnumerator PostData(string url, string json, System.Action<string> callback)
     {
         var webRequest = new UnityWebRequest(url , "POST");
-        var bodyRaw = Encoding.UTF8.GetBytes(json);     //json 인코딩 
+        var bodyRaw = Encoding.UTF8.GetBytes(json);    /*json인코딩 =>인코딩은 원본 데이터가 가지고 있는 용량을 줄이기 
+                                                        * 위해 데이터를 코드화하는 과정을 거쳐 최종적으로 용량을 압축하는 과정*/
 
         webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
         webRequest.downloadHandler = new DownloadHandlerBuffer();
