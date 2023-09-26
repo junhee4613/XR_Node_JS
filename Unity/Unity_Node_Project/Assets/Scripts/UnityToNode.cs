@@ -131,9 +131,14 @@ public class UnityToNode : MonoBehaviour
 
     private IEnumerator PostData(string url, string json, System.Action<string> callback)
     {
-        var webRequest = new UnityWebRequest(url , "POST");
+        var webRequest = new UnityWebRequest(url , "POST");/*"POST": "POST"는 HTTP 요청 메서드 중 하나인 POST 메서드를 나타냅니다. 
+                                                                POST 메서드는 서버로 데이터를 보낼 때 사용되며, 주로 데이터를 생성 또는 수정하는 데 사용됩니다. 
+                                                                이 부분에서는 웹 리소스에 데이터를 POST하는 요청을 생성하고 있습니다.*/
+
         var bodyRaw = Encoding.UTF8.GetBytes(json);    /*json인코딩 =>인코딩은 원본 데이터가 가지고 있는 용량을 줄이기 
                                                         * 위해 데이터를 코드화하는 과정을 거쳐 최종적으로 용량을 압축하는 과정*/
+        /*요약하면, Encoding.UTF8.GetBytes(json) 코드는 JSON 문자열을 바이트 배열로 변환하는 작업을 수행하며, 이렇게 변환된 데이터가 웹 요청의 본문으로 서버에 전송됩니다.
+         * 데이터의 압축이나 압축 해제는 여기서 직접 수행되지 않습니다.*/
 
         webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
         webRequest.downloadHandler = new DownloadHandlerBuffer();
@@ -155,5 +160,34 @@ public class UnityToNode : MonoBehaviour
         webRequest.Dispose();       //연결 해제 (없으면 메모리 누수)
     }
 
+
+
+
+
+/*비동기(Asynchronous)와 동기(Synchronous)는 프로그래밍 및 컴퓨터 과학에서 중요한 개념입니다.
+
+동기(Synchronous):
+
+실행 순서: 동기적인 코드 실행은 위에서 아래로 순차적으로 진행됩니다.한 작업이 시작하면 완료될 때까지 다음 작업은 기다려야 합니다.
+
+차단(Blocking): 동기 코드는 한 작업이 진행되는 동안 다른 작업들은 대기 상태에 있어야 합니다.이로 인해 다른 작업들이 차단(blocking) 되는 현상이 발생할 수 있습니다.
+
+
+간단함: 동기 코드는 일반적으로 순차적이며, 작업의 흐름을 이해하기 쉽고 예측하기 쉽습니다.
+
+
+비동기 (Asynchronous):
+
+
+실행 순서: 비동기 코드는 여러 작업이 동시에 진행될 수 있습니다. 한 작업이 시작되면 다른 작업들을 차단하지 않고 계속해서 진행할 수 있습니다.
+
+차단 해제 (Non-blocking): 비동기 코드는 차단되지 않으므로 다른 작업들이 자유롭게 실행될 수 있습니다.이로 인해 시스템 전체적으로 효율적으로 동작할 수 있습니다.
+
+복잡성: 비동기 코드는 여러 작업이 동시에 실행될 수 있기 때문에 코드의 복잡성이 증가할 수 있습니다. 작업이 언제 완료될지 예측하기 어려울 수 있습니다.
+
+예를 들어, 웹 애플리케이션에서 비동기적인 AJAX 요청을 사용하면 웹 페이지의 일부를 다운로드하거나 서버와 통신하는 동안에도 다른 작업을 계속할 수 있습니다. 이것은 웹 페이지가 빠르게 응답하고 사용자 경험을 향상시키는 데 도움이 됩니다.반면 동기적인 요청은 요청이 완료될 때까지 다른 작업을 차단하므로 사용자 경험이 떨어질 수 있습니다.
+
+
+비동기 및 동기 프로그래밍은 각각의 장단점이 있으며, 상황에 따라 적절한 방법을 선택하는 것이 중요합니다.*/
 
 }
