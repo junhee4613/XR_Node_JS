@@ -13,7 +13,7 @@ app.use(express.json());                   //json을 사용하겠다.
 
 //====================== GAME LOGIC ===========================
 
-app.post('/startConstruction' , (req, res) => {
+app.post('/startConstruction' , (req, res) => {     //클라이언트로 부터 서버에 데이터를 보내면 기존의 데이터는 사라지고 새로운 데이터가 갱신된다.
     
     const currentTime = new Date();             //스타트시 const로 시간을 고정해준다. DB ->로 저장할때는 형태 결정해야함
     const constructionTime = new Date(currentTime.getTime() + 10000); //현재 시간으로부터 10초뒤로 저장(건물 완성 10초)
@@ -110,7 +110,7 @@ app.post('/userdata' , (req ,res) => {
         message: ''
     };
 
-    let user = users.find(x=>x.id == id);       //users 배열에서 X를 찾아서 리턴
+    let user = users.find(x=>x.id == id);       //users 배열에서 오브젝트를 하나씩 검사해 X의 id 속성과 일치한다면 찾아서 리턴
 
     if(user == undefined)                       //undefined 될경우 신규 등록
     {

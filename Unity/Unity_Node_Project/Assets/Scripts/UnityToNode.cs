@@ -39,7 +39,6 @@ public class UnityToNode : MonoBehaviour
             req.data = data;
             var json = JsonConvert.SerializeObject(req);                        //json형식의 문자열로 직렬화
             Debug.Log(json);
-
             StartCoroutine(this.PostData(url, json, (raw) =>
             {
                 Protocols.Packets.common res = JsonConvert.DeserializeObject< Protocols.Packets.common>(raw);   //역직렬화 시켜 json데이터를 c#코드로 변환
@@ -70,7 +69,6 @@ public class UnityToNode : MonoBehaviour
             StartCoroutine(this.GetData(url, (raw) =>
             {
                 var res = JsonConvert.DeserializeObject<Protocols.Packets.res_data>(raw);       //JSON 변환
-
                 foreach(var user in res.result)
                 {
                     Debug.LogFormat("{0}, {1}", user.id, user.data);          //디버그로그로 서버에서 보내준것 확인
@@ -135,9 +133,8 @@ public class UnityToNode : MonoBehaviour
                                                                 POST 메서드는 서버로 데이터를 보낼 때 사용되며, 주로 데이터를 생성 또는 수정하는 데 사용됩니다. 
                                                                 이 부분에서는 웹 리소스에 데이터를 POST하는 요청을 생성하고 있습니다.*/
 
-        var bodyRaw = Encoding.UTF8.GetBytes(json);    /*json인코딩 =>인코딩은 원본 데이터가 가지고 있는 용량을 줄이기 
-                                                        * 위해 데이터를 코드화하는 과정을 거쳐 최종적으로 용량을 압축하는 과정*/
-        /*요약하면, Encoding.UTF8.GetBytes(json) 코드는 JSON 문자열을 바이트 배열로 변환하는 작업을 수행하며, 이렇게 변환된 데이터가 웹 요청의 본문으로 서버에 전송됩니다.
+        var bodyRaw = Encoding.UTF8.GetBytes(json);   
+        /* 인코딩은 정보를 다른 형식으로 바꾼다는 말이다. Encoding.UTF8.GetBytes(json) 코드는 JSON 문자열을 바이트 배열로 변환하는 작업을 수행하며, 이렇게 변환된 데이터가 웹 요청의 본문으로 서버에 전송됩니다.
          * 데이터의 압축이나 압축 해제는 여기서 직접 수행되지 않습니다.*/
 
         webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
