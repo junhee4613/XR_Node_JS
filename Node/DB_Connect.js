@@ -23,7 +23,7 @@ connection.connect((err) => {
 
 });
 
-connection.query('SEKECT * FROM userid', (err, results, fields) => {
+connection.query('SELECT * FROM userid', (err, results, fields) => {
     if(err) throw err;
 
     const dataArray = results;
