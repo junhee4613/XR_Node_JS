@@ -29,7 +29,7 @@ public class LoginManager : MonoBehaviour
         using(UnityWebRequest webRequest = UnityWebRequest.Post(apiUrl + "/login", form))
         {
             yield return webRequest.SendWebRequest();
-
+            //서버로 부터 데이터를 성공적으로 받아오지 못했을 때(아래 구문)
             if(webRequest.result != UnityWebRequest.Result.Success)
             {
                 loginStatuText.text = "Login failed : " + webRequest.error;
