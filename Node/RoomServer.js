@@ -21,7 +21,7 @@ wss.on('connection', function connections(ws){                  //커넥션이 �
         let requestType = jsonData.requestType;      //리퀘스트 타입으로 결정
         let params = jsonData.message;              //파라미터 추가
 
-        console.log('받은 데이터:' , jsonData, requestype, params);
+        console.log('받은 데이터:' , jsonData, requestType, params);
 
         if(requestType == 10){       //유저 리스트
             ws.send(JSON.stringify(userList));
